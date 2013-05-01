@@ -84,6 +84,8 @@ def status_unicorn
   end
 end
 
+puts `whoami`
+
 case ARGV[0]
 when "start"
   puts "Starting Unicorn #{APP_NAME}"
