@@ -36,12 +36,21 @@ def different_gemfile?
 end
 
 def start_unicorn
+  whoami = `whoami`
   if File.exists?("#{ROOT_PATH}/current/Gemfile")
     puts "OpsWorks: Gemfile detected - running Unicorn with bundle exec"
-    run_and_ignore_exitcode_and_print_command "cd #{ROOT_PATH}/current && /usr/local/bin/bundle exec unicorn_rails --env <%= @deploy[:rails_env] %> --daemonize -c #{ROOT_PATH}/shared/config/unicorn.conf"
+    command = "cd #{ROOT_PATH}/current && /usr/local/bin/bundle exec unicorn_rails --env <%= @deploy[:rails_env] %> --daemonize -c #{ROOT_PATH}/shared/config/unicorn.conf"
+    if whoami == 'root'
+      command = "sudo su deploy -c '#{command}'"
+    end
+    run_and_ignore_exitcode_and_print_command command
   else
     puts "OpsWorks: no Gemfile detected - running plain Unicorn"
-    run_and_ignore_exitcode_and_print_command "cd #{ROOT_PATH}/current && unicorn_rails --env <%= @deploy[:rails_env] %> --daemonize -c #{ROOT_PATH}/shared/config/unicorn.conf"
+    command = "cd #{ROOT_PATH}/current && /usr/local/bin/bundle exec unicorn_rails --env <%= @deploy[:rails_env] %> --daemonize -c #{ROOT_PATH}/shared/config/unicorn.conf"
+    if whoami == 'root'
+      command = "sudo su deploy -c '#{command}'"
+    end
+    run_and_ignore_exitcode_and_print_command command
   end
 end
 
@@ -83,8 +92,6 @@ def status_unicorn
 		return false
   end
 end
-
-puts `whoami`
 
 case ARGV[0]
 when "start"
