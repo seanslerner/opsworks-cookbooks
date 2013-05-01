@@ -36,7 +36,7 @@ def different_gemfile?
 end
 
 def start_unicorn
-  whoami = `whoami`
+  whoami = `whoami`.strip
   if File.exists?("#{ROOT_PATH}/current/Gemfile")
     puts "OpsWorks: Gemfile detected - running Unicorn with bundle exec"
     command = "cd #{ROOT_PATH}/current && /usr/local/bin/bundle exec unicorn_rails --env <%= @deploy[:rails_env] %> --daemonize -c #{ROOT_PATH}/shared/config/unicorn.conf"
