@@ -16,7 +16,7 @@ case node[:platform]
 
         execute "newrelic-add-gpg-key" do
             command "wget -O - #{gpg_key_url} | apt-key add -"
-            notifies :run, "execute[newrelic-apt-get-update]", :immediately
+            notifies :run, resources(:execute => "newrelic-apt-get-update"), :immediately
             not_if "apt-key list | grep #{gpg_key_id}"
         end
 
@@ -26,7 +26,7 @@ case node[:platform]
             owner "root"
             group "root"
             mode 0644
-            notifies :run, "execute[newrelic-apt-get-update]", :immediately
+            notifies :run, resources(:execute => "newrelic-apt-get-update"), :immediately
             action :create_if_missing
         end
 

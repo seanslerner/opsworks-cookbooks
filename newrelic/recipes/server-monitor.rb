@@ -28,7 +28,7 @@ template "/etc/newrelic/nrsysmond.cfg" do
         :collector_host => node[:newrelic][:server_monitoring][:collector_host],
         :timeout => node[:newrelic][:server_monitoring][:timeout]
     )
-    notifies :restart, "service[newrelic-sysmond]"
+    notifies :restart, resources(:service => "newrelic-sysmond")
 end
 
 service "newrelic-sysmond" do
