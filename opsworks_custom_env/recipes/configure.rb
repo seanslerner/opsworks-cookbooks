@@ -10,5 +10,14 @@ node[:deploy].each do |application, deploy|
     deploy deploy
     env node[:custom_env][application]
   end
-  
+
+  Chef::Log.info("Ensuring shared/assets directory for #{application} app...")
+ 
+  directory "#{deploy[:deploy_to]}/shared/assets" do
+    group deploy[:group]
+    owner deploy[:user]
+    mode 0775
+    action :create
+    recursive true
+  end
 end
