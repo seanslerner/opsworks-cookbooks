@@ -29,6 +29,11 @@ directory "/var/spool/rsyslog" do
   mode 0755
 end
 
+service node['rsyslog']['service_name'] do
+  supports :restart => true, :reload => true, :status => true
+  action [:enable, :start]
+end
+
 # Our main stub which then does its own rsyslog-specific
 # include of things in /etc/rsyslog.d/*
 template "/etc/rsyslog.conf" do
@@ -43,9 +48,4 @@ template "/etc/rsyslog.d/50-default.conf" do
   backup false
   mode 0644
   notifies :restart, resources(:service => node['rsyslog']['service_name'])
-end
-
-service node['rsyslog']['service_name'] do
-  supports :restart => true, :reload => true, :status => true
-  action [:enable, :start]
 end
