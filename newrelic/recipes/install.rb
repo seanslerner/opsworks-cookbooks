@@ -53,4 +53,9 @@ case node[:platform]
             provider Chef::Provider::Package::Rpm
             action :install
         end
+
+        execute "newrelic-manual-install" do
+            command "yum install -y newrelic-sysmond"
+            user "root"
+        end
 end
