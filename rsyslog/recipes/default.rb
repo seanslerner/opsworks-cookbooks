@@ -35,21 +35,14 @@ template "/etc/rsyslog.conf" do
   source 'rsyslog.conf.erb'
   mode 0644
   variables(:protocol => node['rsyslog']['protocol'])
-  notifies :restart, "service[#{node['rsyslog']['service_name']}]"
+  notifies :restart, resources(:service => node['rsyslog']['service_name'])
 end
 
 template "/etc/rsyslog.d/50-default.conf" do
   source "50-default.conf.erb"
   backup false
   mode 0644
-  notifies :restart, "service[#{node['rsyslog']['service_name']}]"
-end
-
-# syslog needs to be stopped before rsyslog can be started on RHEL versions before 6.0
-if platform_family?('rhel') && node['platform_version'].to_i < 6
-  service "syslog" do
-    action [:stop, :disable]
-  end
+  notifies :restart, resources(:service => node['rsyslog']['service_name'])
 end
 
 service node['rsyslog']['service_name'] do
