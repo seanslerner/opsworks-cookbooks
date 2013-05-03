@@ -7,7 +7,7 @@
 
 #install the server monitor
 package "newrelic-sysmond" do
-    action :install
+    action :upgrade
 end
 
 service "newrelic-sysmond" do
