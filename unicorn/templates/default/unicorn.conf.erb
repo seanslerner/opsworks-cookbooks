@@ -30,8 +30,10 @@ before_fork do |server, worker|
   if defined?(ActiveRecord::Base)
     ActiveRecord::Base.connection.disconnect!
   end
+end
 
-  # Before forking, kill the master process that belongs to the .oldbin PID.
+after_fork do |server, worker|
+  # After forking, kill the master process that belongs to the .oldbin PID.
   # This enables 0 downtime deploys.
   old_pid = "<%= @deploy[:deploy_to]%>/shared/pids/unicorn.pid.oldbin"
   if File.exists?(old_pid) && server.pid != old_pid
@@ -41,9 +43,6 @@ before_fork do |server, worker|
       # someone else did our job for us
     end
   end
-end
-
-after_fork do |server, worker|
   # the following is *required* for Rails + "preload_app true",
   if defined?(ActiveRecord::Base)
     ActiveRecord::Base.establish_connection
