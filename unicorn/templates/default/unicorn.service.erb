@@ -39,7 +39,11 @@ def start_unicorn
   whoami = `whoami`.strip
   if File.exists?("#{ROOT_PATH}/current/Gemfile")
     puts "OpsWorks: Gemfile detected - running Unicorn with bundle exec"
+    <% if @deploy[:just_shut_up_i_know_what_im_doing] %>
+    command = "cd #{ROOT_PATH}/current && /usr/local/bin/bundle exec unicorn --env <%= @deploy[:rails_env] %> --daemonize -c #{ROOT_PATH}/current/unicorn.rb"
+    <% else %>
     command = "cd #{ROOT_PATH}/current && /usr/local/bin/bundle exec unicorn_rails --env <%= @deploy[:rails_env] %> --daemonize -c #{ROOT_PATH}/shared/config/unicorn.conf"
+    <% end %>
     if whoami == 'root'
       command = "sudo su deploy -c '#{command}'"
     end
