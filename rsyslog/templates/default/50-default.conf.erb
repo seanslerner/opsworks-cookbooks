@@ -5,40 +5,40 @@
 #
 # First some standard log files.  Log by facility.
 #
-auth,authpriv.*			/media/ephemeral0/auth.log
-*.*;auth,authpriv.none		-/media/ephemeral0/syslog
-#cron.*				/media/ephemeral0/cron.log
-daemon.*			-/media/ephemeral0/daemon.log
-kern.*				-/media/ephemeral0/kern.log
-lpr.*				-/media/ephemeral0/lpr.log
-mail.*				-/media/ephemeral0/mail.log
-user.*				-/media/ephemeral0/user.log
+auth,authpriv.*			/media/ephemeral0/log/auth.log
+*.*;auth,authpriv.none		-/media/ephemeral0/log/syslog
+#cron.*				/media/ephemeral0/log/cron.log
+daemon.*			-/media/ephemeral0/log/daemon.log
+kern.*				-/media/ephemeral0/log/kern.log
+lpr.*				-/media/ephemeral0/log/lpr.log
+mail.*				-/media/ephemeral0/log/mail.log
+user.*				-/media/ephemeral0/log/user.log
 
 #
 # Logging for the mail system.  Split it up so that
 # it is easy to write scripts to parse these files.
 #
-mail.info			-/media/ephemeral0mail.info
-mail.warn			-/media/ephemeral0/mail.warn
-mail.err			/media/ephemeral0/mail.err
+mail.info			-/media/ephemeral0/log/mail.info
+mail.warn			-/media/ephemeral0/log/mail.warn
+mail.err			/media/ephemeral0/log/mail.err
 
 #
 # Logging for INN news system.
 #
-news.crit			/var/log/news/news.crit
-news.err			/var/log/news/news.err
-news.notice			-/var/log/news/news.notice
+news.crit			/media/ephemeral0/log/news/news.crit
+news.err			/media/ephemeral0/log/news/news.err
+news.notice			-/media/ephemeral0/log/news/news.notice
 
 #
 # Some "catch-all" log files.
 #
 *.=debug;\
 	auth,authpriv.none;\
-	news.none;mail.none	-/media/ephemeral0/debug
+	news.none;mail.none	-/media/ephemeral0/log/debug
 *.=info;*.=notice;*.=warn;\
 	auth,authpriv.none;\
 	cron,daemon.none;\
-	mail,news.none		-/media/ephemeral0/messages
+	mail,news.none		-/media/ephemeral0/log/messages
 
 #
 # Emergencies are sent to everybody logged in.
