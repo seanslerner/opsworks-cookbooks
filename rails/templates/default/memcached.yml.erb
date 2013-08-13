@@ -1,7 +1,5 @@
 <% (['development', 'production'] + [@environment]).uniq.each do |env| -%>
 <%= env %>:
-  servers:
-    <% @memcached[:hosts].each do |host| %>
-    - <%= host[:host] || 'localhost' %>:<%= host[:port] %>
-    <% end %>
+    host: <%= @memcached[:host] || 'localhost' %>
+    port: <%= @memcached[:port] %>
 <% end -%>
