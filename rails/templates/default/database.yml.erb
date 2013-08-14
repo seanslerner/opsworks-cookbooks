@@ -4,6 +4,7 @@
   database: <%= @database[:database] %>
   encoding: utf8
   host: <%= @database[:host] || 'localhost' %>
+  port: <%= @database[:port] || '5432' %>
   username: <%= @database[:username] %>
   password: <%= @database[:password] %>
   reconnect: <%= @database[:reconnect] ? 'true' : 'false' %>
