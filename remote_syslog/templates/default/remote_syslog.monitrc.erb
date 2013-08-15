@@ -1,5 +1,0 @@
-check process remote_syslog_<%= @application %>
-  with pidfile /var/run/remote_syslog/<%= @application %>/remote_syslog.pid
-  start program = "/usr/local/bin/remote_syslog -c <%= @deploy[:deploy_to] %>/current/config/log_files.yml -P /var/run/remote_syslog/<%= @application %>" as uid root and gid users
-  stop program = "/usr/bin/killall remote_syslog"
-  group remote_syslog
