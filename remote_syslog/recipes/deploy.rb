@@ -20,10 +20,7 @@ node[:deploy].each do |application, deploy|
     mode "0755"
   end
 
-  logs_list = []
-  node[:scalarium][:instance][:roles].each do |role|
-    logs_list = logs_list + node[:remote_syslog][:logs][role] if node[:remote_syslog][:logs][role]
-  end
+  logs_list = node[:remote_syslog][:logs]
 
   template "#{deploy[:deploy_to]}/current/config/log_files.yml" do
     source "log_files.yml.erb"
