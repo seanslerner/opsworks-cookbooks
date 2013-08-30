@@ -29,6 +29,16 @@ server {
     }
   }
 
+  location ~* ^/assets/ {
+    expires 1y;
+    add_header Cache-Control public;
+
+    if ($request_filename ~* ^.*?\.(eot)|(ttf)|(woff)|(svg)|(otf)$){
+      add_header Access-Control-Allow-Origin *;
+    }
+    break;
+  }
+
   location /nginx_status {
     stub_status on;
     access_log off;
@@ -47,7 +57,7 @@ server {
   listen   443;
   server_name <%= @application[:domains].join(" ") %> <%= node[:hostname] %>;
   access_log <%= node[:nginx][:log_dir] %>/<%= @application[:domains].first %>-ssl.access.log;
-  
+
   ssl on;
   ssl_certificate /etc/nginx/ssl/<%= @application[:domains].first %>.crt;
   ssl_certificate_key /etc/nginx/ssl/<%= @application[:domains].first %>.key;
@@ -76,6 +86,16 @@ server {
       proxy_pass http://unicorn_<%= @application[:domains].first %>;
       break;
     }
+  }
+
+  location ~* ^/assets/ {
+    expires 1y;
+    add_header Cache-Control public;
+
+    if ($request_filename ~* ^.*?\.(eot)|(ttf)|(woff)|(svg)|(otf)$){
+      add_header Access-Control-Allow-Origin *;
+    }
+    break;
   }
 
   error_page 500 502 503 504 /500.html;
