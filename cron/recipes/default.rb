@@ -9,3 +9,8 @@ cron "geocode_locations" do
   weekday "0"
   command 'cd ../srv/www/switchboard_unicorn/current/ && bundle exec rake geocode_update'
 end
+
+cron "remove_stale_communities"
+  hour "3"
+  command 'cd ../srv/www/switchboard_unicorn/current/ && bundle exec rake cleanup:communities'
+end
