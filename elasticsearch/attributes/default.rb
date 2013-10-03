@@ -1,12 +1,13 @@
+# #-*- encoding : utf-8 -*-
 # === VERSION AND LOCATION
-default.elasticsearch[:version]       = "0.20.5"
+default.elasticsearch[:version]       = "0.90.3"
 default.elasticsearch[:host]          = "http://download.elasticsearch.org"
 default.elasticsearch[:repository]    = "elasticsearch/elasticsearch"
 default.elasticsearch[:filename]      = "elasticsearch-#{node.elasticsearch[:version]}.tar.gz"
 default.elasticsearch[:download_url]  = [node.elasticsearch[:host], node.elasticsearch[:repository], node.elasticsearch[:filename]].join('/')
 
 # === USER & PATHS
-default.elasticsearch[:dir]       = "/opt"
+default.elasticsearch[:dir]       = "/data"
 default.elasticsearch[:user]      = "elasticsearch"
 default.elasticsearch[:home_dir]  = [node.elasticsearch[:dir], node.elasticsearch[:user]].join('/')
 default.elasticsearch[:command_path]  = [node.elasticsearch[:home_dir], 'bin', 'elasticsearch'].join('/')

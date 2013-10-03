@@ -29,7 +29,7 @@
 # Cluster name identifies your cluster for auto-discovery. If you're running
 # multiple clusters on the same network, make sure you're using unique names.
 #
-# cluster.name: elasticsearch
+cluster.name: elasticsearch
 
 
 #################################### Node #####################################
@@ -144,12 +144,12 @@
 # Path to directory containing configuration (this file and logging.yml):
 #
 # path.conf: /path/to/conf
-path.conf: <%= node.elasticsearch[:path][:conf] %>
+path.conf: <%= node[:elasticsearch][:path][:conf] %>
 
 # Path to directory where to store index data allocated for this node.
 #
 # path.data: /path/to/data
-path.data: <%= node.elasticsearch[:path][:data] %>
+path.data: <%= node[:elasticsearch][:path][:data] %>
 
 # Can optionally include more than one location, causing data to be striped across
 # the locations (a la RAID 0) on a file level, favouring locations with most free
@@ -164,12 +164,12 @@ path.data: <%= node.elasticsearch[:path][:data] %>
 # Path to log files:
 #
 # path.logs: /path/to/logs
-path.logs: <%= node.elasticsearch[:path][:logs] %>
+path.logs: <%= node[:elasticsearch][:path][:logs] %>
 
 # Path to where plugins are installed:
 #
 # path.plugins: /path/to/plugins
-path.plugins: <%= node.elasticsearch[:path][:plugins] %>
+path.plugins: <%= node[:elasticsearch][:path][:plugins] %>
 
 
 #################################### Plugin ###################################
@@ -314,7 +314,7 @@ path.plugins: <%= node.elasticsearch[:path][:plugins] %>
 # Set this option to a higher value on a slow or congested network
 # to minimize discovery failures:
 #
-# discovery.zen.ping.timeout: 3s
+discovery.zen.ping.timeout: 3s
 
 # See <http://elasticsearch.org/guide/reference/modules/discovery/zen.html>
 # for more information.
@@ -325,12 +325,12 @@ path.plugins: <%= node.elasticsearch[:path][:plugins] %>
 #
 # 1. Disable multicast discovery (enabled by default):
 #
-# discovery.zen.ping.multicast.enabled: false
+discovery.zen.ping.multicast.enabled: false
 #
 # 2. Configure an initial list of master nodes in the cluster
 #    to perform discovery when new nodes (master or data) are started:
 #
-# discovery.zen.ping.unicast.hosts: ["host1", "host2:port", "host3[portX-portY]"]
+discovery.zen.ping.unicast.hosts: ["<%= @hosts.join('","') %>"]
 
 # EC2 discovery allows to use AWS EC2 API in order to perform discovery.
 #
