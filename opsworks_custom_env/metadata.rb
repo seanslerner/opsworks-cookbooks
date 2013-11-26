@@ -1,10 +1,7 @@
 maintainer "Artsy"
 description "Writes a config/application.yml file with custom ENV values to apps' deploy directories."
-version "0.1"
+version "0.3"
 
-recipe "opsworks_custom_env::configure", "Write a config/application.yml file to app's deploy directory. Relies on restart command declared by rails::configure recipe. (Intended as part of configure/deploy OpsWorks events.)"
-recipe "opsworks_custom_env::update", "Write an updated config/application.yml and restart the app. Can be run independently of OpsWorks configure/deploy events."
-
-# This actually depends on the rails::configure recipe by OpsWorks, but not
-# declaring that here to prevent librarian-chef failure.
-# depends "rails::configure"
+recipe "opsworks_custom_env::configure", "Write custom configuration and notify rails application to restart upon changes."
+recipe "opsworks_custom_env::restart_command", "Helper recipe that defines command to restart rails application."
+recipe "opsworks_custom_env::write_config", "Write a config/application.yml file to app's deploy directory. Used by configure recipe, or can be used directly in custom situations."

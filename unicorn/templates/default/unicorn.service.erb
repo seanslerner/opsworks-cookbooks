@@ -5,7 +5,6 @@ require 'digest/md5'
 ROOT_PATH="<%= @deploy[:deploy_to] %>"
 APP_NAME="<%= @application %>"
 PID_PATH="<%= @deploy[:deploy_to] %>/shared/pids/unicorn.pid"
-SOCKET_PATH="<%= @deploy[:deploy_to] %>/shared/sockets/unicorn.sock"
 
 def run_and_print_command(command)
   puts command
@@ -37,25 +36,12 @@ def different_gemfile?
 end
 
 def start_unicorn
-  whoami = `whoami`.strip
   if File.exists?("#{ROOT_PATH}/current/Gemfile")
     puts "OpsWorks: Gemfile detected - running Unicorn with bundle exec"
-    <% if @deploy[:just_shut_up_i_know_what_im_doing] %>
-    command = "cd #{ROOT_PATH}/current && DEPLOY_ROOT=<%= @deploy[:deploy_to]%> /usr/local/bin/bundle exec unicorn --env <%= @deploy[:rails_env] %> --daemonize -c #{ROOT_PATH}/current/unicorn.rb -l#{SOCKET_PATH}"
-    <% else %>
-    command = "cd #{ROOT_PATH}/current && /usr/local/bin/bundle exec unicorn_rails --env <%= @deploy[:rails_env] %> --daemonize -c #{ROOT_PATH}/shared/config/unicorn.conf"
-    <% end %>
-    if whoami == 'root'
-      command = "sudo su deploy -c '#{command}'"
-    end
-    run_and_ignore_exitcode_and_print_command command
+    run_and_ignore_exitcode_and_print_command "cd #{ROOT_PATH}/current && /usr/local/bin/bundle exec unicorn_rails --env <%= @deploy[:rails_env] %> --daemonize -c #{ROOT_PATH}/shared/config/unicorn.conf"
   else
     puts "OpsWorks: no Gemfile detected - running plain Unicorn"
-    command = "cd #{ROOT_PATH}/current && /usr/local/bin/bundle exec unicorn_rails --env <%= @deploy[:rails_env] %> --daemonize -c #{ROOT_PATH}/shared/config/unicorn.conf"
-    if whoami == 'root'
-      command = "sudo su deploy -c '#{command}'"
-    end
-    run_and_ignore_exitcode_and_print_command command
+    run_and_ignore_exitcode_and_print_command "cd #{ROOT_PATH}/current && unicorn_rails --env <%= @deploy[:rails_env] %> --daemonize -c #{ROOT_PATH}/shared/config/unicorn.conf"
   end
 end
 

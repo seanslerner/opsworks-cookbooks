@@ -25,17 +25,15 @@ template '/etc/ganglia/gmond.conf' do
     :monitoring_master => monitoring_master
   })
 
-  notifies :restart, resources(:service => 'gmond')
+  notifies :restart, "service[gmond]"
   only_if do
-    File.exists?('/etc/ganglia/gmond.conf')
+    ::File.exists?('/etc/ganglia/gmond.conf')
   end
 end
 
-if monitoring_master.nil?
-  execute 'Stop gmond if there is no monitoring master' do
-    command 'pkill gmond'
-    only_if 'pgrep gmond'
-  end
+execute 'Stop gmond if there is no monitoring master' do
+  command 'pkill gmond'
+  only_if { monitoring_master.nil? && system('pgrep gmond') }
 end
 
 if node[:opsworks][:instance][:layers].any?{ |layer|
