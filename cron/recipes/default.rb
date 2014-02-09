@@ -1,10 +1,6 @@
-node[:custom_env][:cron_jobs].each do |cron_values|
-  cron "#{cron_values[:name]}" do
-    minute  "#{cron_values[:minute]}"
-    hour    "#{cron_values[:hour]}"
-    day     "#{cron_values[:day]}"
-    month   "#{cron_values[:month]}"
-    weekday "#{cron_values[:weekday]}"
-    command "#{cron_values[:command]}"
-  end
+cron "send_email_alerts" do
+  minute  "10"
+  hour    "15"
+  day     "*"
+  command "cd /srv/www/switchboard/current && bundle exec rake email_subscription_scheduler"
 end
