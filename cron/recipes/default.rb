@@ -1,4 +1,4 @@
-node[:cron_jobs].each do |cron_values|
+node[:custom_env][:cron_jobs].each do |cron_values|
   cron "#{cron_values[:name]}" do
     minute  "#{cron_values[:minute]}"
     hour    "#{cron_values[:hour]}"
