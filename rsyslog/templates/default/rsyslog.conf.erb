@@ -56,13 +56,25 @@ $WorkDirectory /var/spool/rsyslog
 #
 $FileOwner <%= node['rsyslog']['user'] %>
 $FileGroup <%= node['rsyslog']['group'] %>
-$FileCreateMode 0640
-$DirCreateMode 0755
+# $FileCreateMode 0640
+# $DirCreateMode 0755
 $Umask 0022
 <% if node['rsyslog']['priv_seperation'] %>
 $PrivDropToUser <%= node['rsyslog']['user'] %>
 $PrivDropToGroup <%= node['rsyslog']['group'] %>
 <% end %>
+
+#########
+#########
+
+$ModLoad omfile
+$DirCreateMode 0700
+$FileCreateMode 0644
+if $programname == 'switchboard-' then ../../srv/www/switchboard/shared/log/production.log
+#########
+#########
+
+
 #
 # Include all config files in /etc/rsyslog.d/
 #
