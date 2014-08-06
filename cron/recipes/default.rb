@@ -2,7 +2,7 @@ cron "send_email_alerts" do
   minute  "10"
   hour    "15"
   day     "*"
-  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production email_subscription_scheduler"
+  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production alert_scheduler"
 end
 
 cron "calculate_scores" do
