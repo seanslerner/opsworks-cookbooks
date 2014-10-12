@@ -18,3 +18,10 @@ cron "promote_posts" do
   day     "*"
   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production promotions"
 end
+
+cron "parse_logs" do
+  minute  "20"
+  hour    "*"
+  day     "*"
+  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production parse_event_log"
+end
