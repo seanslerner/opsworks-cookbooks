@@ -25,3 +25,17 @@ cron "parse_logs" do
   day     "*"
   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production parse_event_log"
 end
+
+cron "expire_gifted gold" do
+  minute  "10"
+  hour    "0"
+  day     "*"
+  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production expire_gifted"
+end
+
+cron "check_card_expiration" do
+  minute  "10"
+  hour    "30"
+  day     "*"
+  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production check_card_expiration"
+end
