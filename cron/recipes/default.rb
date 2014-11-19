@@ -39,3 +39,10 @@ cron "check_card_expiration" do
   day     "*"
   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production check_card_expiration"
 end
+
+cron "summarize_hed_communities" do
+  minute  "4"
+  hour    "20"
+  day     "*"
+  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production argus:summarize_hed_communities"
+end
