@@ -4,7 +4,7 @@ check process delayed_job.<%= identifier %>
   with pidfile <%= @deploy[:deploy_to] %>/shared/pids/delayed_job.<%= identifier %>.pid
   start program = "/bin/su - <%= @deploy[:user] %> -c 'cd <%= @deploy[:current_path] %> && RAILS_ENV=<%= @deploy[:rails_env] %> bundle exec script/delayed_job start --identifier=<%= identifier %> <%= ("--queues=#{config['queues']}" if config['queues']) %>'"
   stop  program = "/bin/su - <%= @deploy[:user] %> -c 'cd <%= @deploy[:current_path] %> && RAILS_ENV=<%= @deploy[:rails_env] %> bundle exec script/delayed_job stop --identifier=<%= identifier %>'"
-  if total memory > 300 MB then restart
+  if totalmemory > 300 MB then restart
   group delayed_job_<%= @application %>_group
 
 <% end %>
