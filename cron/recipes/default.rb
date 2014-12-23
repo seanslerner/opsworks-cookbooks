@@ -46,3 +46,10 @@ cron "summarize_hed_communities" do
   day     "*"
   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production argus:summarize_hed_communities"
 end
+
+cron "summarize_communities_globally" do
+  minute  "6"
+  hour    "30"
+  day     "*"
+  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production argus:all_community_dist_summaries"
+end
