@@ -34,22 +34,29 @@ cron "expire_gifted gold" do
 end
 
 cron "check_card_expiration" do
-  minute  "20"
-  hour    "0"
+  minute  "30"
+  hour    "10"
   day     "*"
   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production gold:check_card_expiration"
 end
 
-cron "summarize_rollout_communities" do
-  minute  "4"
-  hour    "20"
+cron "score_communities" do
+  minute  "0"
+  hour    "10"
   day     "*"
-  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production argus:summarize_rollout_communities"
+  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production score_communities"
+end
+
+cron "summarize_all_communities" do
+  minute  "0"
+  hour    "15"
+  day     "*"
+  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production argus:summarize_all_communities"
 end
 
 cron "summarize_communities_globally" do
-  minute  "6"
-  hour    "22"
+  minute  "0"
+  hour    "8"
   day     "*"
   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production argus:all_community_dist_summaries"
 end
