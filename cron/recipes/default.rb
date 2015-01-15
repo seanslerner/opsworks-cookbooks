@@ -34,8 +34,8 @@ cron "expire_gifted gold" do
 end
 
 cron "check_card_expiration" do
-  minute  "10"
-  hour    "30"
+  minute  "30"
+  hour    "10"
   day     "*"
   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production check_card_expiration"
 end
