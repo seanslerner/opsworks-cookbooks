@@ -40,16 +40,23 @@ cron "check_card_expiration" do
   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production check_card_expiration"
 end
 
+cron "score_communities" do
+  minute  "0"
+  hour    "10"
+  day     "*"
+  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production score_communities"  
+end
+
 cron "summarize_all_communities" do
-  minute  "4"
-  hour    "20"
+  minute  "0"
+  hour    "15"
   day     "*"
   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production argus:summarize_all_communities"
 end
 
 cron "summarize_communities_globally" do
-  minute  "6"
-  hour    "30"
+  minute  "0"
+  hour    "8"
   day     "*"
   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production argus:all_community_dist_summaries"
 end
