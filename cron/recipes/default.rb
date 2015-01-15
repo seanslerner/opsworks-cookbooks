@@ -40,7 +40,7 @@ cron "check_card_expiration" do
   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production check_card_expiration"
 end
 
-cron "summarize_rollout_communities" do
+cron "summarize_all_communities" do
   minute  "4"
   hour    "20"
   day     "*"
