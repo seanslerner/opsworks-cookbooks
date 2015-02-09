@@ -61,7 +61,7 @@ node[:deploy].each do |application, deploy|
       end
     end
 
-    template "/etc/monit/conf.d/sidekiq_#{application}.monitrc" do
+    template "#{node[:monit][:conf_dir]}/sidekiq_#{application}.monitrc" do
       mode 0644
       source "sidekiq_monitrc.erb"
       variables({
