@@ -31,8 +31,8 @@ node[:deploy].each do |application, deploy|
   end
 
   Chef::Log.debug("Restarting Sidekiq Application: #{application}")
-  execute "sleep 300 && restart Rails app #{application}" do
-    command node[:sidekiq][application][:restart_command]
+  execute "restart Rails app #{application}" do
+    command "sleep 300 && #{node[:sidekiq][application][:restart_command]}"
   end
 
 end
