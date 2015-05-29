@@ -1,8 +1,22 @@
-cron "send_email_alerts" do
+# cron "send_email_alerts" do
+#   minute  "10"
+#   hour    "15"
+#   day     "*"
+#   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production alert_scheduler"
+# end
+
+cron "prepare weekly digests" do
+  minute  "0"
+  hour    "7"
+  day     "*"
+  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production alert_scheduler"
+end
+
+cron "send_weekly_digests" do
   minute  "10"
   hour    "15"
   day     "*"
-  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production alert_scheduler"
+  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production digests:deliver"
 end
 
 cron "calculate_scores" do
