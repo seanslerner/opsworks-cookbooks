@@ -9,7 +9,7 @@ cron "prepare weekly digests" do
   minute  "0"
   hour    "7"
   day     "*"
-  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production alert_scheduler"
+  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production digests:collect_posts"
 end
 
 cron "send_weekly_digests" do
