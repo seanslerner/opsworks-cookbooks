@@ -5,6 +5,13 @@
 #   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production alert_scheduler"
 # end
 
+cron "send post survey notifications" do
+  minute  "0"
+  hour    "14"
+  day     "*"
+  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production post_surveys:notifications"
+end
+
 cron "prepare weekly digests" do
   minute  "0"
   hour    "7"
