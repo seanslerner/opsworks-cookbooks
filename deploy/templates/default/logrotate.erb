@@ -11,4 +11,9 @@
         notifempty
         copytruncate
         sharedscripts
+        <% if dir.to_s == '/srv/www/switchboard/shared/log' %>
+        postrotate
+                /bin/bash /srv/www/switchboard/current/lib/s3logs.sh events
+        endscript
+        <% end %>
 }
