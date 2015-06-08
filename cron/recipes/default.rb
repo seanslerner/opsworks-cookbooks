@@ -26,11 +26,11 @@ cron "parse_logs" do
   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production parse_event_log"
 end
 
-cron "" do
+cron "process_email_queue" do
   minute "30"
   hour "8"
   day "*"
-  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production email:queue:process"
+  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production email:queue:processs"
 end
 
 cron "expire_gifted gold" do
