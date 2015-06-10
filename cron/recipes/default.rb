@@ -30,7 +30,7 @@ cron "process_email_queue" do
   minute "30"
   hour "8"
   day "*"
-  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production email:queue:processs"
+  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production email:queue:process"
 end
 
 cron "expire_gifted gold" do
