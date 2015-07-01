@@ -81,3 +81,11 @@ cron "summarize_all_communities" do
   day     "*"
   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production argus:summarize_all_communities"
 end
+
+cron "founder_digest_weekly" do
+  minute  "0"
+  hour    "8"
+  day     "*"
+  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production insights:founder_digest_weekly"
+end
+
