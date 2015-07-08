@@ -89,3 +89,10 @@ cron "founder_digest_weekly" do
   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production insights:founder_digest_weekly"
 end
 
+cron "tracke accepted invites" do
+  minute  "0"
+  hour    "5"
+  day     "*"
+  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production invites:track_accepted"
+end
+
