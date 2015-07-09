@@ -49,8 +49,8 @@ end
 
 cron "process_email_queue" do
   minute "30"
-  hour "8"
-  day "*"
+  hour   "8"
+  day    "*"
   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production email:queue:process"
 end
 
@@ -85,7 +85,7 @@ end
 cron "founder_digest_weekly" do
   minute  "0"
   hour    "8"
-  day     "0"
+  weekday "0"
   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production insights:founder_digest_weekly"
 end
 
