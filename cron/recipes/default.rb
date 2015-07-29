@@ -98,7 +98,7 @@ end
 
 cron "report search stats" do
   minute  "30"
-  hour    "*"
+  hour    "18"
   day     "*"
   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production slack_stats:search_and_filter"
 end
