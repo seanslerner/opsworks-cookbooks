@@ -82,11 +82,11 @@ cron "summarize_all_communities" do
   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production argus:summarize_all_communities"
 end
 
-cron "founder_digest_weekly" do
+cron "happiness_report" do
   minute  "0"
-  hour    "8"
-  weekday "0"
-  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production insights:founder_digest_weekly"
+  hour    "15"
+  weekday "5"
+  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production happiness:report"
 end
 
 cron "track accepted invites" do
