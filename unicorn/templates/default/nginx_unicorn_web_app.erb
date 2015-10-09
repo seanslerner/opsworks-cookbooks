@@ -39,6 +39,18 @@ server {
   location = /500.html {
     root <%= @application[:absolute_document_root] %>;
   }
+
+  location @503 {
+    error_page 405 = /system/maintenance.html;
+    if (-f $document_root/system/maintenance.html) {
+      rewrite ^(.*)$ /system/maintenance.html break;
+    }
+    rewrite ^(.*)$ /503.html break;
+  }
+
+  if (-f $document_root/system/maintenance.html) {
+    return 503;
+  }
 }
 
 <% if @application[:ssl_support] %>
@@ -89,6 +101,18 @@ server {
   error_page 500 502 503 504 /500.html;
   location = /500.html {
     root <%= @application[:absolute_document_root] %>;
+  }
+
+  location @503 {
+    error_page 405 = /system/maintenance.html;
+    if (-f $document_root/system/maintenance.html) {
+      rewrite ^(.*)$ /system/maintenance.html break;
+    }
+    rewrite ^(.*)$ /503.html break;
+  }
+
+  if (-f $document_root/system/maintenance.html) {
+    return 503;
   }
 }
 <% end %>
