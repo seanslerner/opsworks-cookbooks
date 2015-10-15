@@ -103,3 +103,10 @@ cron "report search stats" do
   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production slack_stats:search_and_filter"
 end
 
+cron "refresh user location data from intercom" do
+  minute  "0"
+  hour    "15"
+  weekday "6"
+  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production users:locations:refresh"
+end
+
