@@ -96,9 +96,16 @@ cron "refresh user location data from intercom" do
   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production users:locations:refresh"
 end
 
-cron "update community metadata for gnargus" do
+cron "update community adoption and engagement metadata for higher ed communities" do
   minute  "0"
   hour    "1"
   weekday "0"
   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production community:meta_data:update"
+end
+
+cron "update post impressions metadata for higher ed communities" do
+  minute  "0"
+  hour    "2"
+  day     "*"
+  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production community:meta_data:update_impressions_data"
 end
