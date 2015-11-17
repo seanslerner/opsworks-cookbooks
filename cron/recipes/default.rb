@@ -1,10 +1,3 @@
-# cron "send_email_alerts" do
-#   minute  "10"
-#   hour    "15"
-#   day     "*"
-#   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production alert_scheduler"
-# end
-
 cron "send post survey notifications" do
   minute  "0"
   hour    "14"
@@ -67,13 +60,6 @@ cron "check_card_expiration" do
   day     "*"
   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production gold:check_card_expiration"
 end
-
-# cron "score_communities" do
-#   minute  "0"
-#   hour    "10"
-#   day     "*"
-#   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production score_communities"
-# end
 
 cron "summarize_all_communities" do
   minute  "0"
