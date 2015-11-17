@@ -68,6 +68,13 @@ cron "summarize_all_communities" do
   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production argus:summarize_all_communities"
 end
 
+cron "summarize all communities' user activity (OrcKillah)" do
+  minute  "0"
+  hour    "16"
+  day     "*"
+  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production orchestrate_killah"
+end
+
 cron "happiness_report" do
   minute  "0"
   hour    "15"
