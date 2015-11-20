@@ -12,3 +12,16 @@
 <% end -%>
 
 <% end %>
+<% if @database[:log_db] %>
+log_db:
+  adapter: <%= @database[:log_db][:adapter].to_s.inspect %>
+  database: <%= @database[:log_db][:database].to_s.inspect %>
+  encoding: <%= (@database[:log_db][:encoding] || 'utf8').to_s.inspect %>
+  host: <%= (@database[:log_db][:host] || 'localhost').to_s.inspect %>
+  username: <%= @database[:log_db][:username].to_s.inspect %>
+  password: <%= @database[:log_db][:password].to_s.inspect %>
+  reconnect: <%= @database[:log_db][:reconnect] ? 'true' : 'false' %>
+<% if @database[:log_db][:port] -%>
+  port: <%= @database[:log_db][:port].to_i.inspect %>
+<% end -%>
+<% end %>
