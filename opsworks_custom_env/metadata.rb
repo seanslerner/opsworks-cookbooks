@@ -1,4 +1,3 @@
-name "opsworks_custom_env"
 maintainer "Artsy"
 description "Writes a config/application.yml file with custom ENV values to apps' deploy directories."
 version "0.3"
