@@ -1,4 +1,5 @@
 node[:deploy].each do |application, deploy|
+
   execute "restart Rails app #{application} for custom env" do
     cwd deploy[:current_path]
     if node[:opsworks][:rails_stack][:name].eql? "apache_passenger"
@@ -9,7 +10,6 @@ node[:deploy].each do |application, deploy|
     user deploy[:user]
 
     action :nothing
-
-    only_if { node[:opsworks][:instance][:layers].include?('rails-app') }
   end
+
 end
