@@ -1,3 +1,8 @@
+$DefaultNetstreamDriverCAFile /etc/papertrail-bundle.pem
+$ActionSendStreamDriver gtls
+$ActionSendStreamDriverMode 1
+$ActionSendStreamDriverAuthMode x509/name
+$ActionSendStreamDriverPermittedPeer *.papertrailapp.com
 <% case @protocol -%>
 <% when "tcp" -%>
 *.* @@<%= @server %>:<%= node['rsyslog']['port'] %>
