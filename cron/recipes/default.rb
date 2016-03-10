@@ -95,3 +95,10 @@ cron "update post impressions metadata for higher ed communities" do
   day     "*"
   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production community:meta_data:update_impressions_data"
 end
+
+cron "update community data in intercom" do
+  minute  "30"
+  hour    "13"
+  day     "*"
+  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production intercom:update_communities"
+end
