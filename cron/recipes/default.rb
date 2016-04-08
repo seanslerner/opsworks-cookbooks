@@ -33,12 +33,12 @@ cron "promote_posts" do
   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production promotions"
 end
 
-cron "process_email_queue" do
-  minute "30"
-  hour   "8"
-  day    "*"
-  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production email:queue:process"
-end
+# cron "process_email_queue" do
+#   minute "30"
+#   hour   "8"
+#   day    "*"
+#   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production email:queue:process"
+# end
 
 cron "expire_gifted gold" do
   minute  "10"
@@ -101,4 +101,11 @@ cron "update community data in intercom" do
   hour    "13"
   day     "*"
   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production intercom:update_communities"
+end
+
+cron "motion of that notion" do
+  minute  "9"
+  hour    "15"
+  day     "*"
+  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production notion"
 end
