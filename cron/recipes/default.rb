@@ -1,8 +1,15 @@
-cron "send post survey notifications" do
+# cron "send post survey notifications" do
+#   minute  "0"
+#   hour    "14"
+#   day     "*"
+#   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production post_surveys:notifications"
+# end
+
+cron "send checkin notifications" do
   minute  "0"
   hour    "14"
   day     "*"
-  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production post_surveys:notifications"
+  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production checkins:notifications"
 end
 
 cron "prepare weekly digests" do
@@ -108,4 +115,11 @@ cron "motion of that notion" do
   hour    "15"
   day     "*"
   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production notion"
+end
+
+cron "motion of that notion for schools" do
+  minute  "7"
+  hour    "15"
+  day     "*"
+  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production notion:seed:schools"
 end
