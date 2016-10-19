@@ -123,3 +123,10 @@ cron "motion of that notion for schools" do
   day     "*"
   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production notion:seed:schools"
 end
+
+cron "clear redis sessions" do
+  minute  "30"
+  hour    "7"
+  day     "*"
+  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production redis:clear_sessions"
+end
