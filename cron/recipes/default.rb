@@ -130,3 +130,17 @@ cron "clear redis sessions" do
   day     "*"
   command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production redis:clear_sessions"
 end
+
+cron "reset alchemyapi:limit" do
+  minute  "40"
+  hour    "7"
+  day     "*"
+  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production alchemyapi:reset_limit"
+end
+
+cron "analyze batch of posts via alchemyapi" do
+  minute  "45"
+  hour    "7"
+  day     "*"
+  command "cd /srv/www/switchboard/current && /usr/local/bin/rake RAILS_ENV=production alchemyapi:analyze_posts_batch"
+end
